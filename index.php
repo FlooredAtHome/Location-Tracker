@@ -1,3 +1,10 @@
+<?php
+require_once 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
+
+$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+$scriptVersion = $detect->getScriptVersion();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,22 +18,11 @@
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 </head>
 <body>
-<?php
-require_once 'vendor/autoload.php';
+<section>
 
-use DeviceDetector\DeviceDetector;
-use DeviceDetector\Parser\Device\AbstractDeviceParser;
+    <p>This is a <b><?php echo $deviceType; ?></b>. Your UA is <b class="<?php echo $deviceType; ?>"><?php echo htmlentities($_SERVER['HTTP_USER_AGENT']); ?></b></p>
 
-// Fetch the user agent
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
-
-// Create an instance of DeviceDetector
-$dd = new DeviceDetector($userAgent);
-
-// Extract any information you want
-$model = $dd->getModel();
-var_dump($model);
-?>
+</section>
     <div id="card">
         <!-- Header Part-->
         <div id="card-header">
