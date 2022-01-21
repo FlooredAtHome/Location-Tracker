@@ -11,41 +11,21 @@
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 </head>
 <body>
-    <?php
-/* detect mobile device*/
-$ismobile = 0;
-$container = $_SERVER['HTTP_USER_AGENT'];
-// A list of mobile devices 
-$useragents = array ( 
-'Blazer' ,
-'Palm' ,
-'Handspring' ,
-'Nokia' ,
-'Kyocera',
-'Samsung' ,
-'Motorola' ,
-'Smartphone', 
-'Windows CE' ,
-'Blackberry' ,
-'WAP' ,
-'SonyEricsson',
-'PlayStation Portable', 
-'LG', 
-'MMP',
-'OPWV',
-'Symbian',
-'EPOC',
-); 
+<?php
+require_once 'vendor/autoload.php';
 
-foreach ( $useragents as $useragents ) { 
- if(strstr($container,$useragents)) {
-   $ismobile = 1;
- }
-}
-if ( $ismobile == 1 ) {
-echo "<p>mobile device</p>";
-echo $_SERVER['HTTP_USER_AGENT'];
-}
+use DeviceDetector\DeviceDetector;
+use DeviceDetector\Parser\Device\AbstractDeviceParser;
+
+// Fetch the user agent
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+// Create an instance of DeviceDetector
+$dd = new DeviceDetector($userAgent);
+
+// Extract any information you want
+$model = $dd->getModel();
+var_dump($model);
 ?>
     <div id="card">
         <!-- Header Part-->
