@@ -11,6 +11,23 @@
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 </head>
 <body>
+    <?php
+    use DeviceDetector\DeviceDetector;
+
+// Fetch the user agent
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+// Create an instance of DeviceDetector
+$dd = new DeviceDetector($userAgent);
+
+// Extract any information you want
+$osInfo = $dd->getOs();
+$device = $dd->getDeviceName();
+$brand = $dd->getBrandName();
+$model = $dd->getModel();
+    echo $model;
+    echo $device;
+    ?>
     <div id="card">
         <!-- Header Part-->
         <div id="card-header">
