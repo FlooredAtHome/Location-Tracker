@@ -1,59 +1,61 @@
-<?php
-require_once 'Mobile_Detect.php';
-$detect = new Mobile_Detect;
-
-$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
-$scriptVersion = $detect->getScriptVersion();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="master.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <title>Find Your Location Trail</title>
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
-    <script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    </script>
-     
-      <script>
-    $.getJSON("https://api.ipify.org?format=json", function(data) {
-        $("#gfg").html(data.ip);
-    })
-    </script>
+<meta charset="utf-8">
+<title>Getting Current Position</title>
+<script>
+    // Set global variable
+    var watchID;
+
+    function showPosition() {
+        if(navigator.geolocation) {
+            watchID = navigator.geolocation.watchPosition(successCallback);
+        } else {
+            alert("Sorry, your browser does not support HTML5 geolocation.");
+        }
+    }
+    function successCallback(position) {
+        toggleWatchBtn.innerHTML = "Stop Watching";
+        
+        // Check position has been changed or not before doing anything
+        if(prevLat != position.coords.latitude || prevLong != position.coords.longitude) {
+            
+            // Set previous location
+            var prevLat = position.coords.latitude;
+            var prevLong = position.coords.longitude;
+            
+            // Get current position
+            var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+            document.getElementById("result").innerHTML = positionInfo;
+            
+        }
+        
+    }
+    function startWatch() {
+        var result = document.getElementById("result");
+        
+        var toggleWatchBtn = document.getElementById("toggleWatchBtn");
+        
+        toggleWatchBtn.onclick = function() {
+            if(watchID) {
+                toggleWatchBtn.innerHTML = "Start Watching";
+                navigator.geolocation.clearWatch(watchID);
+                watchID = false;
+            } else {
+                toggleWatchBtn.innerHTML = "Aquiring Geo Location...";
+                showPosition();
+            }
+        }
+    }
+    
+    // Initialise the whole system (above)
+    window.onload = startWatch;
+</script>
 </head>
 <body>
-    
-<section>
-<h3>IP Address :</h3>
-        <p id="gfg"></p>
-    <p>This is a <b><?php echo $deviceType; ?></b>. Your UA is <b class="<?php echo $deviceType; ?>"><?php echo htmlentities($_SERVER['HTTP_USER_AGENT']); ?></b></p>
-
-</section>
-    <div id="card">
-        <!-- Header Part-->
-        <div id="card-header">
-            <h3>Generate Your Location Trail</h3>
-            <div id="actions">
-              <button id="start"><span>Start</span></button>
-              <button id="github-repo"><a href="https://github.com/vasusehgal/Location-Tracker" target="_blank" style="display: block;text-decoration:none;color:white;"><span>Github</span></a></button>
-            </div>
-        </div>
-        
-        <!-- Body Area-->
-        <div id="card-body">
-            <div id="map-container" class="map-container"></div>
-        </div>
-
-        <!-- Footer Portion-->
-        <div id="card-footer">
-            <p id="text">Click On Start To Generate Your Location Trail</p>
-        </div>
-    </div>
-    <script src="locTrail.js"></script>
+    <button type="button" id="toggleWatchBtn">Start Watching</button>
+    <div id="result">
+        <!--Position information will be inserted here-->
+    </div>   
 </body>
 </html>
