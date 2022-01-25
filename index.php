@@ -21,11 +21,14 @@
         if(prevLat != position.coords.latitude || prevLong != position.coords.longitude) {
             
             // Set previous location
-            var prevLat = position.coords.latitude;
-            var prevLong = position.coords.longitude;
+            var prevLatR = position.coords.latitude;
+            var prevLongR = position.coords.longitude;
+
+            var prevLat = Math.round(prevLatR * 10000.0) / 10000.0;
+            var prevLong = Math.round(prevLongR * 10000.0) / 10000.0;
             
             // Get current position
-            var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+            var positionInfo = "Your current position is (" + "Latitude: " + Math.round(position.coords.latitude * 10000.0) / 10000.0 + ", " + "Longitude: " + Math.round(position.coords.longitude * 10000.0) / 10000.0 + ")";
             document.getElementById("result").innerHTML = positionInfo;
             
         }
