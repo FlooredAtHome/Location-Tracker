@@ -60,5 +60,9 @@
     <div id="result">
         <!--Position information will be inserted here-->
     </div>   
+    <?php
+        $container = $_SERVER['HTTP_USER_AGENT'];
+        var_dump($container);
+    ?>
 </body>
 </html>
