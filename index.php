@@ -60,22 +60,10 @@
     <button type="button" id="toggleWatchBtn">Start Watching</button>
     <div id="result">
         <!--Position information will be inserted here-->
-    </div>   
-    <?php
-        $container = $_SERVER['HTTP_USER_AGENT'];
-        var_dump($container);
-    ?>
+    </div> 
 </body>
     
- <script>
- if ('serviceWorker' in navigator) {
-    console.log("Will the service worker register?");
-    navigator.serviceWorker.register('service-worker.js')
-      .then(function(reg){
-        console.log("Yes, it did.");
-     }).catch(function(err) {
-        console.log("No it didn't. This happened:", err)
-    });
- }
+<script>
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js') }
 </script>
 </html>
