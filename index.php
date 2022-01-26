@@ -28,7 +28,7 @@
             var prevLong = Math.round(prevLongR * 10000.0) / 10000.0;
 
             // Get current position
-            var positionInfo = "Your current position is (" + "Latitude: " + Math.round(position.coords.latitude * 10000.0) / 10000.0 + ", " + "Longitude: " + Math.round(position.coords.longitude * 10000.0) / 10000.0 + ", " + "Speed: " + spd + ")";
+            var positionInfo = "Your current position is (" + "Latitude: " + Math.round(position.coords.latitude * 10000.0) / 10000.0 + ", " + "Longitude: " + Math.round(position.coords.longitude * 10000.0) / 10000.0 + ")";
             document.getElementById("result").innerHTML = positionInfo;
             
         }
