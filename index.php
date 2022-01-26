@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.json">
 <meta charset="utf-8">
 <title>Getting Current Position</title>
 <script>
