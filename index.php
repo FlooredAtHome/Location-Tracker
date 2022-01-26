@@ -57,10 +57,12 @@
 </script>
 </head>
 <body>
-    <button type="button" id="toggleWatchBtn">Start Watching</button>
-    <div id="result">
+    <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+        <button type="button" id="toggleWatchBtn" style="height:100px; width:200px; font-size:20px;">Start Watching</button>
+    </div>
+    <div id="result" style="font-size:20px; text-align: center;">
         <!--Position information will be inserted here-->
-    </div> 
+    </div>  
 </body>
     
 <script>
